@@ -1,0 +1,67 @@
+{% extends "accounts/main.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col s12 m12">
+        <h4>Appointments</h4>
+        <hr>
+        <div class="card grey darken-1">
+            <div class="card-content">
+                <table class="responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Patient</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+
+                            {% if request.user.groups.all.0.name != "patient" %}
+
+                            <th>Update</th>
+                            <th>Remove</th>
+
+                            {% endif %}
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for appoint in appointments %}
+
+                        <tr>
+                            <td>{{appoint.doctor.name}}</td>
+                            <td>{{appoint.patient.name}}</td>
+                            <td>{{appoint.date}}</td>
+                            <td>{{appoint.time}}</td>
+                            <td>{{appoint.status}}</td>
+
+                            {% if request.user.groups.all.0.name != "patient" %}
+
+                            <td>
+                                <a class="btn btn-small waves-effect waves-light blue accent-2 black-text"
+                                    href="{% url 'update-appoint' appoint.id %}">
+                                    Update
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-small waves-effect waves-light black-text"
+                                    href="{% url 'delete-appoint' appoint.id %}">
+                                    Remove
+                                </a>
+                            </td>
+
+                            {% endif %}
+
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

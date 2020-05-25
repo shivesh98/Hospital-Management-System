@@ -1,0 +1,22 @@
+{% extends "accounts/main.html" %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col m8 offset-m2">
+        <div class="card-panel deep-purple lighten-3 center-align">
+            <h5>Are you sure you want to remove patient?</h5>
+            <form action="{% url 'delete-patient' patient.id %}" method="post">
+                {% csrf_token %}
+                <a class="btn btn-lg amber lighten-1 waves-effect waves-light black-text"
+                    href="{% url 'recephome' %}">Cancel</a>
+                <button class="btn btn-lg red waves-effect waves-light black-text" type="submit" name="action">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

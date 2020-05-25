@@ -1,0 +1,54 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col s12">
+        {% for pres in prescriptions %}
+        <div class="card light-blue">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 m3">
+                        <h6>Doctor: {{pres.doctor.name}}</h6>
+                    </div>
+                    <div class="col s12 m3">
+                        <h6>Patient: {{pres.patient.name}}</h6>
+                    </div>
+                    <div class="col s12 m3">
+                        <h6>Disease: {{pres.disease}}</h6>
+                    </div>
+                    <div class="col s12 m3">
+                        <h6>Date: {{pres.date}}</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p>Prescription: {{pres.prescription}}</p>
+                    </div>
+                </div>
+
+                {% if request.user.groups.all.0.name != "patient" %}
+
+                <div class="row">
+                    <div class="col s12">
+                        <a class="btn btn-small waves-effect waves-light amber lighten-2 black-text"
+                            href="{% url 'update-pres' pres.id %}">
+                            Update
+                        </a>
+                        <a class="btn btn-small waves-effect waves-light black-text"
+                            href="{% url 'delete-pres' pres.id %}">
+                            Remove
+                        </a>
+                    </div>
+                </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

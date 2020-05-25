@@ -1,0 +1,36 @@
+{% extends "accounts/main.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+
+                <div class="row center-align">
+                    {% if request.resolver_match.url_name == "register-doctor" %}
+                    <h3>Register as Doctor</h3>
+                    {% else %}
+                    <h3>Register as Patient</h3>
+                    {% endif %}
+                </div>
+
+                <div class="card-content">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            {{form.as_p}}
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-lg waves-effect waves-light mt-2" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

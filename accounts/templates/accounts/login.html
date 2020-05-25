@@ -1,0 +1,31 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+
+
+<div class="row">
+    <form class="col s12 m4 offset-m4" method="POST" action="">
+        {% csrf_token %}
+        <div class="card teal">
+            <div class="card-content text-white">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name="username" id="first_name" type="text">
+                        <label class="black-text" for="first_name">Username</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" type="password" name="password">
+                        <label class="black-text" for="password">Password</label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light black-text" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% endblock content %}

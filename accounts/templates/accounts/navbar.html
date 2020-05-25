@@ -1,0 +1,111 @@
+<nav class="grey darken-3 black-text">
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Hospital</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+            {% if user.is_authenticated %}
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+            {% if request.user.groups.all.0.name == "hr" %}
+
+            <li><a href="{% url 'hrhome' %}">Dashboard</a></li>
+            li><a class='dropdown-trigger' href='#' data-target='dropdown3'>Invoice<i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="{% url 'add-doctor' %}">Add Doctor</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+            {% elif request.user.groups.all.0.name == "receptionist" %}
+
+            <li><a href="{% url 'recephome' %}">Dashboard</a></li>
+            <li><a class='dropdown-trigger' href='#' data-target='dropdown3'>Invoice<i
+                        class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="{% url 'add-patient' %}">Add Patient</a></li>
+            <li><a class='dropdown-trigger' href='#' data-target='dropdown2'>Appointment<i
+                        class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+            {% elif request.user.groups.all.0.name == "doctor" %}
+
+            <li><a href="{% url 'doctor' %}">Dashboard</a></li>
+            <li><a href="{% url 'update-doctor' request.user.id %}">Profile</a></li>
+            <li><a class='dropdown-trigger' href='#' data-target='dropdown2'>Appointment<i
+                        class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>Prescription<i
+                        class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+            {% elif request.user.groups.all.0.name == "patient" %}
+
+            <li><a href="{% url 'patient' %}">Dashboard</a></li>
+            <li><a href="{% url 'invoice' %}">Invoices</a></li>
+            <li><a href="{% url 'appointments' %}">Appointments</a></li>
+            <li><a href="{% url 'prescriptions' %}">Prescriptions</a></li>
+            <li><a href="{% url 'update-patient' request.user.id %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+
+            {% endif %}
+
+
+            {% endif %}
+
+
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    {% if request.user.groups.all.0.name == "hr" %}
+
+    <li><a href="{% url 'hrhome' %}">Dashboard</a></li>
+    <li><a href="{% url 'invoice' %}">Invoices</a></li>
+    <li><a href="{% url 'create-invoice' %}">Generate Invoice</a></li>
+    <li><a href="{% url 'add-doctor' %}">Add Doctor</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% elif request.user.groups.all.0.name == "receptionist" %}
+
+    <li><a href="{% url 'recephome' %}">Dashboard</a></li>
+    <li><a href="{% url 'invoice' %}">Invoices</a></li>
+    <li><a href="{% url 'create-invoice' %}">Generate Invoice</a></li>
+    <li><a href="{% url 'add-patient' %}">Add Patient</a></li>
+    <li><a href="{% url 'create-appoint' %}">Add Appointment</a></li>
+    <li><a href="{% url 'appointments' %}">Appointments</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% elif request.user.groups.all.0.name == "doctor" %}
+
+    <li><a href="{% url 'doctor' %}">Dashboard</a></li>
+    <li><a href="{% url 'update-doctor' request.user.id %}">Profile</a></li>
+    <li><a href="{% url 'appointments' %}">Appointments</a></li>
+    <li><a href="{% url 'create-appoint' %}">New Appointment</a></li>
+    <li><a href="{% url 'prescriptions' %}">Prescriptions</a></li>
+    <li><a href="{% url 'create-pres' %}">New Prescription</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% elif request.user.groups.all.0.name == "patient" %}
+
+    <li><a href="{% url 'patient' %}">Dashboard</a></li>
+    <li><a href="{% url 'appointments' %}">Appointments</a></li>
+    <li><a href="{% url 'prescriptions' %}">Prescriptions</a></li>
+    <li><a href="{% url 'update-patient' request.user.id %}">Profile</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% endif %}
+
+</ul>
+
+<ul id='dropdown1' class='dropdown-content'>
+    <li><a href="{% url 'prescriptions' %}">Prescriptions</a></li>
+    <li><a href="{% url 'create-pres' %}">New Prescription</a></li>
+</ul>
+
+<ul id="dropdown2" class="dropdown-content">
+    <li><a href="{% url 'appointments' %}">Appointments</a></li>
+    <li><a href="{% url 'create-appoint' %}">New Appointment</a></li>
+</ul>
+
+<ul id="dropdown3" class="dropdown-content">
+    <li><a href="{% url 'invoice' %}">Invoices</a></li>
+    <li><a href="{% url 'create-invoice' %}">Generate Invoice</a></li>
+</ul>

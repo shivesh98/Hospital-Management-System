@@ -1,0 +1,60 @@
+{% extends "accounts/main.html" %}
+
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col s12 m12">
+        <h3>Patients</h3>
+        <hr>
+        <div class="card grey darken-1">
+            <div class="card-content">
+                <table class="responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Paid</th>
+                            <th>Outstanding</th>
+                            <th>Total</th>
+
+                            {% if request.user.groups.all.0.name != "patient" %}
+                            <th>Update</th>
+                            {% endif %}
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for acc in accounts %}
+
+                        <tr>
+                            <td>{{acc.patient.name}}</td>
+                            <td>{{acc.doctor.name}}</td>
+                            <td>{{acc.paid}}</td>
+                            <td>{{acc.outstanding}}</td>
+                            <td>{{acc.total}}</td>
+
+                            {% if request.user.groups.all.0.name != "patient" %}
+                            <td>
+                                <a class="btn btn-small waves-effect waves-light blue accent-2 black-text"
+                                    href="{% url 'update-invoice' acc.id %}">
+                                    Update
+                                </a>
+                            </td>
+                            {% endif %}
+
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

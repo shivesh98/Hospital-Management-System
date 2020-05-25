@@ -1,0 +1,27 @@
+{% extends "accounts/main.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col m8 offset-m2">
+        <div class="card-panel deep-purple lighten-3 center-align">
+            <h5>Are you sure you want to remove appointment?</h5>
+            <form action="{% url 'delete-appoint' appointment.id %}" method="post">
+                {% csrf_token %}
+
+                {% if request.user.groups.all.0.name == "receptionist" %}
+                <a class="btn btn-lg amber lighten-1 waves-effect waves-light black-text"
+                    href="{% url 'recephome' %}">Cancel</a>
+                {% elif request.user.groups.all.0.name == "doctor" %}
+                <a class="btn btn-lg amber lighten-1 waves-effect waves-light black-text"
+                    href="{% url 'doctor' %}">Cancel</a>
+                {% endif %}
+                <button class="btn btn-lg red waves-effect waves-light black-text" type="submit" name="action">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
