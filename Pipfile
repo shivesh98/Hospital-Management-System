@@ -8,7 +8,7 @@ pylint = "*"
 black = "*"
 
 [packages]
-django = "==3.0.5"
+django = "==3.0.7"
 pillow = "*"
 django-filter = "*"
 
